@@ -1,0 +1,25 @@
+body {
+    font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+    height: 100vh;
+}
+
+.click-button {
+    width: 200px;
+    height: 200px;
+}
+
+.click-button:active {
+    background-color: #F0F0F0 !important;
+    transition: none !important;
+}
+
+.auto-buy {
+    width: 400px;
+    height: 100px;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.card {
+    border: 1px solid #e5e5e5;
+}
