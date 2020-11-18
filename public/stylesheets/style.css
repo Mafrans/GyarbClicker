@@ -13,11 +13,22 @@ body {
     transition: none !important;
 }
 
-.auto-buy {
+.worker {
     width: 400px;
     height: 100px;
     box-sizing: border-box;
     padding: 1rem;
+    cursor: pointer;
+    transition: all 0.1s ease-out;
+}
+
+.worker:hover {
+    border-color: #b2b2b2;
+}
+
+.worker:active {
+    background-color: #F0F0F0;
+    transition: none;
 }
 
 .card {
