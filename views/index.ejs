@@ -7,6 +7,10 @@
 
     <body>
         <div id="app">
+            <audio v-if="useAchievements" ref="achievementSound">   
+                <source src="/sounds/tada.mp3" />   
+            </audio>
+
             <div class="uk-height-1-1" uk-grid="">
                 <div class="uk-width-1-3 uk-flex uk-flex-center uk-flex-column">
                     <div class="uk-margin-medium-left">
@@ -21,9 +25,24 @@
                     <h1 class="uk-margin-medium-bottom" id="money">
                         $<span v-text="money == Math.round(money) ? money : money.toFixed(2)"></span>
                     </h1>
-                    <button @click="money++" class="click-button uk-button uk-button-default">Click</button>
+                    <button @click="money += mpc" class="click-button uk-button uk-button-default">Click <span v-if="mpc > 1">(+{{ mpc }})</span></button>
                 </div>
-                <div class="uk-width-1-3"></div>
+                <div class="uk-width-1-3">
+
+                </div>
+                <div class="sidebar">
+                    <div v-if="useAchievements" class="achievements">
+                        <achievement-card 
+                            class="achievement" 
+                            v-for="(achievement, i) in achievements" 
+                            :key="i"
+                            v-if="achievement.unlocked != null"
+                            :name="achievement.name"
+                            :description="achievement.description"
+                            :image="achievement.image"
+                        ></achievement-card>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -34,11 +53,15 @@
         <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
 
         <script src="/javascripts/worker.js"></script>
+        <script src="/javascripts/achievement-card.js"></script>
+
         <script>
             var app = new Vue({
                 el: '#app',
                 data: {
+                    useAchievements: <%- useAchievements %>,
                     mps: 0,
+                    mpc: 1,
                     money: 0,
                     workers: [
                         {
@@ -46,31 +69,64 @@
                             cost: 10,
                             speed: 1,
                             amount: 0,
+                            lastAmount: 0,
                         },
                         {
                             name: "Steam-powered Clicker",
                             cost: 200,
                             speed: 10,
                             amount: 0,
+                            lastAmount: 0,
                         },
                         {
                             name: "Advanced Robo-clicker",
                             cost: 1200,
                             speed: 50,
                             amount: 0,
+                            lastAmount: 0,
                         },
                         {
                             name: "Clickosaurus Rex",
                             cost: 10000,
                             speed: 100,
                             amount: 0,
+                            lastAmount: 0,
                         },
                         {
                             name: "Cheat-Machine",
                             cost: 100000,
                             speed: 1000,
                             amount: 0,
+                            lastAmount: 0,
                         },
+                    ],
+                    achievements: [
+                        {
+                            name: 'And so it begins...',
+                            description: 'Buy a Lazy Worker.',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                let workers = data.workers.find(a => a.name == 'Lazy Worker');
+                                if(workers.amount > 0 && workers.lastAmount == 0) {
+                                    workers.lastAmount = workers.amount;
+                                    return true;
+                                }
+                            }
+                        },
+                        {
+                            name: 'Another one!',
+                            description: 'Buy a second Lazy Worker, for more profit',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                let workers = data.workers.find(a => a.name == 'Lazy Worker');
+                                if(workers.amount > 1 && workers.lastAmount == 1) {
+                                    workers.lastAmount = workers.amount;
+                                    return true;
+                                }
+                            }
+                        }
                     ],
                     time: {
                         last: Date.now(),
@@ -79,17 +135,36 @@
                 },
                 methods: {
                     buyWorker(worker) {
+                        console.log("buyWorker");
                         if(this.money < worker.cost) return;
 
                         this.mps += worker.speed;
                         this.money -= worker.cost;
                         worker.cost = Math.round(worker.cost * 1.5);
                         worker.amount++;
+                        this.mpc++;
                     },
                     updateLoop() {
+                        console.log("updateLoop");
                         this.time.delta = Date.now() - this.time.last;
                         this.money = this.money + parseFloat(this.mps * this.time.delta/1000000);
+
+                        if(this.useAchievements) {
+                            this.tryUnlockAchievements();
+                        }
+
                         requestAnimationFrame(this.updateLoop)
+                    },
+                    tryUnlockAchievements() {
+                        console.log("tryUnlockAchievements");
+                        this.achievements.forEach(achievement => {
+                            console.log(achievement);
+                            if(achievement.tryUnlock(this, achievement)) {
+                                achievement.unlocked = Date.now();
+                                this.$refs.achievementSound.volume = 0.5;
+                                this.$refs.achievementSound.play();
+                            }
+                        });
                     }
                 },
                 mounted() {

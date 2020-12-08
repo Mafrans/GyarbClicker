@@ -34,3 +34,18 @@ body {
 .card {
     border: 1px solid #e5e5e5;
 }
+
+.achievements {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    bottom: 0;
+    right: 0;
+    margin: 4rem;
+}
+
+.achievement {
+    padding: 0.5rem;
+    z-index: 1;
+}
