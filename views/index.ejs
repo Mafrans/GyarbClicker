@@ -61,8 +61,11 @@
                 data: {
                     useAchievements: <%- useAchievements %>,
                     mps: 0,
+                    lastMps: 0,
                     mpc: 1,
+                    lastMpc: 0,
                     money: 0,
+                    lastMoney: 0,
                     workers: [
                         {
                             name: "Lazy Worker",
@@ -125,6 +128,83 @@
                                     workers.lastAmount = workers.amount;
                                     return true;
                                 }
+                            }
+                        },
+                        {
+                            name: 'Upgrades, people',
+                            description: 'Buy a better worker',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                let workers = data.workers.find(a => a.name != 'Lazy Worker');
+                                if(workers.amount > 0 && workers.lastAmount == 0) {
+                                    workers.lastAmount = workers.amount;
+                                    return true;
+                                }
+                            }
+                        },
+                        {
+                            name: 'Now we\'re getting somewhere',
+                            description: 'Earn $25/s',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                if(this.mps >= 25 && this.lastMps < 25) {
+                                    this.lastMps = this.mps;
+                                    return true;
+                                }
+                            }
+                        },
+                        {
+                            name: 'Stimulus Package',
+                            description: 'Own $1200',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                if(this.money >= 1200 && this.lastMoney < 1200) {
+                                    this.lastMoney = this.money;
+                                    return true;
+                                }
+                            }
+                        },
+                        {
+                            name: 'Robotic Revolution',
+                            description: 'Buy a Robo-clicker',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                let workers = data.workers.find(a => a.name != 'Advanced Robo-clicker');
+                                if(workers.amount > 0 && workers.lastAmount == 0) {
+                                    workers.lastAmount = workers.amount;
+                                    return true;
+                                } 
+                            }
+                        },
+                        {
+                            name: 'Automated Process',
+                            description: 'Own more Robo-clickers than Lazy Workers',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                let workers = data.workers.find(a => a.name != 'Lazy Worker');
+                                let robots = data.workers.find(a => a.name != 'Advanced Robo-clicker');
+                                if(robots.amount > workers.amount && robots.lastAmount <= workers.amount) {
+                                    robots.lastAmount = robots.amount;
+                                    return true;
+                                } 
+                            }
+                        },
+                        {
+                            name: 'Jurassic Park',
+                            description: 'Buy a Clickosaurus Rex',
+                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                let workers = data.workers.find(a => a.name != 'Clickosaurus Rex');
+                                if(workers.amount > 0 && workers.lastAmount == 0) {
+                                    workers.lastAmount = workers.amount;
+                                    return true;
+                                } 
                             }
                         }
                     ],
