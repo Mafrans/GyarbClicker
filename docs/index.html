@@ -61,8 +61,11 @@
                 data: {
                     useAchievements: location.hash != "",
                     mps: 0,
+                    lastMps: 0,
                     mpc: 1,
+                    lastMpc: 1,
                     money: 0,
+                    lastMoney: 0,
                     workers: [
                         {
                             name: "Lazy Worker",
@@ -116,7 +119,7 @@
                         },
                         {
                             name: 'Another one!',
-                            description: 'Buy a second Lazy Worker, for more profit',
+                            description: 'Buy another Lazy Worker, for more profit',
                             image: './images/achievements/achievement1.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
@@ -146,8 +149,8 @@
                             image: './images/achievements/achievement3.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                if(this.mps >= 25 && this.lastMps < 25) {
-                                    this.lastMps = this.mps;
+                                if(data.mps >= 25 && data.lastMps < 25) {
+                                    data.lastMps = data.mps;
                                     return true;
                                 }
                             }
@@ -158,8 +161,8 @@
                             image: './images/achievements/achievement4.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                if(this.money >= 1200 && this.lastMoney < 1200) {
-                                    this.lastMoney = this.money;
+                                if(data.money >= 1200 && data.lastMoney < 1200) {
+                                    data.lastMoney = data.money;
                                     return true;
                                 }
                             }
@@ -206,11 +209,11 @@
                         },
                         {
                             name: 'Cheating the System',
-                            description: 'Buy a Cheat Machine',
+                            description: 'Buy a Cheat-Machine',
                             image: './images/achievements/achievement8.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name == 'Cheat Machine');
+                                let workers = data.workers.find(a => a.name == 'Cheat-Machine');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
