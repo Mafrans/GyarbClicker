@@ -1,14 +1,14 @@
 <html>
     <head>
         <title></title>
-        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <link rel="stylesheet" href="./stylesheets/style.css" />
         <link rel="stylesheet" href="https://pagecdn.io/lib/uikit/3.5.5/css/uikit.min.css" />
     </head>
 
     <body>
         <div id="app">
             <audio v-if="useAchievements" ref="achievementSound">   
-                <source src="/sounds/tada.mp3" />   
+                <source src="./sounds/tada.mp3" />   
             </audio>
 
             <div class="uk-height-1-1" uk-grid="">
@@ -52,20 +52,17 @@
         <!-- production version, optimized for size and speed -->
         <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
 
-        <script src="/javascripts/worker.js"></script>
-        <script src="/javascripts/achievement-card.js"></script>
+        <script src="./javascripts/worker.js"></script>
+        <script src="./javascripts/achievement-card.js"></script>
 
         <script>
             var app = new Vue({
                 el: '#app',
                 data: {
-                    useAchievements: <%- useAchievements %>,
+                    useAchievements: location.hash != "",
                     mps: 0,
-                    lastMps: 0,
                     mpc: 1,
-                    lastMpc: 0,
                     money: 0,
-                    lastMoney: 0,
                     workers: [
                         {
                             name: "Lazy Worker",
@@ -76,28 +73,28 @@
                         },
                         {
                             name: "Steam-powered Clicker",
-                            cost: 200,
+                            cost: 300,
                             speed: 10,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
                             name: "Advanced Robo-clicker",
-                            cost: 1200,
+                            cost: 2000,
                             speed: 50,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
                             name: "Clickosaurus Rex",
-                            cost: 10000,
+                            cost: 17500,
                             speed: 100,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
                             name: "Cheat-Machine",
-                            cost: 100000,
+                            cost: 200000,
                             speed: 1000,
                             amount: 0,
                             lastAmount: 0,
@@ -107,7 +104,7 @@
                         {
                             name: 'And so it begins...',
                             description: 'Buy a Lazy Worker.',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement0.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
                                 let workers = data.workers.find(a => a.name == 'Lazy Worker');
@@ -120,7 +117,7 @@
                         {
                             name: 'Another one!',
                             description: 'Buy a second Lazy Worker, for more profit',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement1.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
                                 let workers = data.workers.find(a => a.name == 'Lazy Worker');
@@ -133,7 +130,7 @@
                         {
                             name: 'Upgrades, people',
                             description: 'Buy a better worker',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement2.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
                                 let workers = data.workers.find(a => a.name != 'Lazy Worker');
@@ -146,7 +143,7 @@
                         {
                             name: 'Now we\'re getting somewhere',
                             description: 'Earn $25/s',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement3.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
                                 if(this.mps >= 25 && this.lastMps < 25) {
@@ -158,7 +155,7 @@
                         {
                             name: 'Stimulus Package',
                             description: 'Own $1200',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement4.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
                                 if(this.money >= 1200 && this.lastMoney < 1200) {
@@ -170,10 +167,10 @@
                         {
                             name: 'Robotic Revolution',
                             description: 'Buy a Robo-clicker',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement5.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name != 'Advanced Robo-clicker');
+                                let workers = data.workers.find(a => a.name == 'Advanced Robo-clicker');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -183,11 +180,11 @@
                         {
                             name: 'Automated Process',
                             description: 'Own more Robo-clickers than Lazy Workers',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement6.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name != 'Lazy Worker');
-                                let robots = data.workers.find(a => a.name != 'Advanced Robo-clicker');
+                                let workers = data.workers.find(a => a.name == 'Lazy Worker');
+                                let robots = data.workers.find(a => a.name == 'Advanced Robo-clicker');
                                 if(robots.amount > workers.amount && robots.lastAmount <= workers.amount) {
                                     robots.lastAmount = robots.amount;
                                     return true;
@@ -197,10 +194,23 @@
                         {
                             name: 'Jurassic Park',
                             description: 'Buy a Clickosaurus Rex',
-                            image: 'https://lh3.googleusercontent.com/gPuq1nfsS2_xvS9cAXannlZRhlnxfdyUtE6OpL4GV7AOfWXdPn4qHmcWg13pctpGo8z3yok76ikZltwloBs5ejDDmrmW1SKwVIT2qRmOjo9W-aPc_T6AZ985HQ=s64-rw',
+                            image: './images/achievements/achievement7.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name != 'Clickosaurus Rex');
+                                let workers = data.workers.find(a => a.name == 'Clickosaurus Rex');
+                                if(workers.amount > 0 && workers.lastAmount == 0) {
+                                    workers.lastAmount = workers.amount;
+                                    return true;
+                                } 
+                            }
+                        },
+                        {
+                            name: 'Cheating the System',
+                            description: 'Buy a Cheat Machine',
+                            image: './images/achievements/achievement8.png',
+                            unlocked: null,
+                            tryUnlock: (data, self) => {
+                                let workers = data.workers.find(a => a.name == 'Cheat Machine');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -225,13 +235,8 @@
                         this.mpc++;
                     },
                     updateLoop() {
-                        console.log("updateLoop");
                         this.time.delta = Date.now() - this.time.last;
                         this.money = this.money + parseFloat(this.mps * this.time.delta/1000000);
-
-                        if(this.useAchievements) {
-                            this.tryUnlockAchievements();
-                        }
 
                         requestAnimationFrame(this.updateLoop)
                     },
@@ -241,7 +246,7 @@
                             console.log(achievement);
                             if(achievement.tryUnlock(this, achievement)) {
                                 achievement.unlocked = Date.now();
-                                this.$refs.achievementSound.volume = 0.5;
+                                this.$refs.achievementSound.volume = 0.3;
                                 this.$refs.achievementSound.play();
                             }
                         });
@@ -249,6 +254,12 @@
                 },
                 mounted() {
                     this.updateLoop();
+
+                    setInterval(() => {
+                        if(this.useAchievements) {
+                            this.tryUnlockAchievements();
+                        }
+                    }, 100);
                 }
             })
         </script>
