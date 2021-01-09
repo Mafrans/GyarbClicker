@@ -14,7 +14,7 @@
             <div class="uk-height-1-1" uk-grid="">
                 <div class="uk-width-1-3 uk-flex uk-flex-center uk-flex-column">
                     <div class="uk-margin-medium-left">
-                        <h3> Total money / sec: $<span v-text="mps"></span> </h3>
+                        <h3> Pengar per sekund: <span v-text="mps"></span> kronor </h3>
 
                         <div v-for="worker in workers" @click="buyWorker(worker)">
                             <worker :name="worker.name" :cost="worker.cost" :speed="worker.speed" />
@@ -23,9 +23,9 @@
                 </div>
                 <div class="uk-width-1-3 uk-flex uk-flex-middle uk-flex-center uk-flex-column">
                     <h1 class="uk-margin-medium-bottom" id="money">
-                        $<span v-text="money == Math.round(money) ? money : money.toFixed(2)"></span>
+                        <span v-text="money == Math.round(money) ? money : money.toFixed(2)"></span> kronor
                     </h1>
-                    <button @click="money += mpc" class="click-button uk-button uk-button-default">Click <span v-if="mpc > 1">(+{{ mpc }})</span></button>
+                    <button @click="money += mpc" class="click-button uk-button uk-button-default">Klicka! <span v-if="mpc > 1">(+{{ mpc }})</span></button>
                 </div>
                 <div class="uk-width-1-3">
 
@@ -52,7 +52,7 @@
         <!-- production version, optimized for size and speed -->
         <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
 
-        <script src="./javascripts/worker.js"></script>
+        <script src="./javascripts/worker_sv.js"></script>
         <script src="./javascripts/achievement-card.js"></script>
 
         <script>
@@ -68,42 +68,42 @@
                     lastMoney: 0,
                     workers: [
                         {
-                            name: "Lazy Worker",
+                            name: "Latmask",
                             cost: 10,
                             speed: 1,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
-                            name: "Steam-powered Clicker",
+                            name: "Ångmaskins-Klickare",
                             cost: 300,
                             speed: 10,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
-                            name: "Advanced Robo-clicker",
+                            name: "Avancerad Robot-klickare",
                             cost: 2000,
                             speed: 50,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
-                            name: "Clickosaurus Rex",
+                            name: "Klickosaurus Rex",
                             cost: 17500,
                             speed: 100,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
-                            name: "Cheat-Machine",
+                            name: "Fuskmaskin",
                             cost: 200000,
                             speed: 1000,
                             amount: 0,
                             lastAmount: 0,
                         },
                         {
-                            name: "🔮 Win the Game",
+                            name: "🔮 Vinn Spelet",
                             cost: 1000000,
                             speed: 10000,
                             amount: 0,
@@ -112,12 +112,12 @@
                     ],
                     achievements: [
                         {
-                            name: 'And so it begins...',
-                            description: 'Buy a Lazy Worker.',
+                            name: 'Början på något stort',
+                            description: 'Köp en Latmask.',
                             image: './images/achievements/achievement0.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name == 'Lazy Worker');
+                                let workers = data.workers.find(a => a.name == 'Latmask');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -125,12 +125,12 @@
                             }
                         },
                         {
-                            name: 'Another one!',
-                            description: 'Buy another Lazy Worker, for more profit',
+                            name: 'En till!',
+                            description: 'Köp en till Latmask, för extra inkomst',
                             image: './images/achievements/achievement1.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name == 'Lazy Worker');
+                                let workers = data.workers.find(a => a.name == 'Latmask');
                                 if(workers.amount > 1 && workers.lastAmount == 1) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -138,12 +138,12 @@
                             }
                         },
                         {
-                            name: 'Upgrades, people',
-                            description: 'Buy a better worker',
+                            name: 'Uppgraderingar, allihopa',
+                            description: 'Köp en bättre arbetare',
                             image: './images/achievements/achievement2.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name != 'Lazy Worker');
+                                let workers = data.workers.find(a => a.name != 'Latmask');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -151,8 +151,8 @@
                             }
                         },
                         {
-                            name: 'Now we\'re getting somewhere',
-                            description: 'Earn $25/s',
+                            name: 'Nu är vi på gång!',
+                            description: 'Tjäna 25 kronor i sekunden',
                             image: './images/achievements/achievement3.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
@@ -163,8 +163,8 @@
                             }
                         },
                         {
-                            name: 'Stimulus Package',
-                            description: 'Own $1200',
+                            name: 'Studiebidrag',
+                            description: 'Äg 1200 kronor',
                             image: './images/achievements/achievement4.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
@@ -175,12 +175,12 @@
                             }
                         },
                         {
-                            name: 'Robotic Revolution',
-                            description: 'Buy a Robo-clicker',
+                            name: 'Robot-revolution',
+                            description: 'Köp en Robot-klickare',
                             image: './images/achievements/achievement5.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name == 'Advanced Robo-clicker');
+                                let workers = data.workers.find(a => a.name == 'Avancerad Robot-klickare');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -188,13 +188,13 @@
                             }
                         },
                         {
-                            name: 'Automated Process',
-                            description: 'Own more Robo-clickers than Lazy Workers',
+                            name: 'Automatiserad Process',
+                            description: 'Äg fler Robot-klickare än Latmaskar',
                             image: './images/achievements/achievement6.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name == 'Lazy Worker');
-                                let robots = data.workers.find(a => a.name == 'Advanced Robo-clicker');
+                                let workers = data.workers.find(a => a.name == 'Latmask');
+                                let robots = data.workers.find(a => a.name == 'Avancerad Robot-klickare');
                                 if(robots.amount > workers.amount && robots.lastAmount <= workers.amount) {
                                     robots.lastAmount = robots.amount;
                                     return true;
@@ -203,11 +203,11 @@
                         },
                         {
                             name: 'Jurassic Park',
-                            description: 'Buy a Clickosaurus Rex',
+                            description: 'Köp en Klickosaurus Rex',
                             image: './images/achievements/achievement7.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name == 'Clickosaurus Rex');
+                                let workers = data.workers.find(a => a.name == 'Klickosaurus Rex');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -215,12 +215,12 @@
                             }
                         },
                         {
-                            name: 'Cheating the System',
-                            description: 'Buy a Cheat-Machine',
+                            name: 'Ett äss upp i ärmen',
+                            description: 'Köp en Fuskmaskin',
                             image: './images/achievements/achievement8.png',
                             unlocked: null,
                             tryUnlock: (data, self) => {
-                                let workers = data.workers.find(a => a.name == 'Cheat-Machine');
+                                let workers = data.workers.find(a => a.name == 'Fuskmaskin');
                                 if(workers.amount > 0 && workers.lastAmount == 0) {
                                     workers.lastAmount = workers.amount;
                                     return true;
@@ -243,7 +243,7 @@
                         worker.amount++;
                         this.mpc++;
 
-                        if(worker.name == "🔮 Win the Game") {
+                        if(worker.name == "🔮 Vinn Spelet") {
                             this.winTheGame()
                         }
                     },
@@ -263,7 +263,7 @@
                         });
                     },
                     winTheGame() {
-                        window.open(`./win.html${ this.useAchievements ? '#a' : '' }`, '_self');
+                        window.open(`./win_sv.html${ this.useAchievements ? '#a' : '' }`, '_self');
                     }
                 },
                 mounted() {
